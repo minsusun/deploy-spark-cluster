@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master
+spec:
+  selector:
+    matchLabels:
+      app: spark-master
+  template:
+    metadata:
+      labels:
+        app: spark-master
+    spec:
+      containers:
+      - name: spark-master
+        image: bde2020/spark-master:3.0.0-hadoop3.2
+        ports:
+        - name: dashboard
+          containerPort: 8080
+        - name: job
+          containerPort: 7077
+        env:
+        - name: INIT_DAEMON_STEP
+          value: setup_spark
+        - # 원래 기존 이미지에서 환경변수를 지정해서 설정해놨지만, k8s로 올리면 이상하게 tcp://<ip_address>:8080으로 잡힌다
+          # 강제로 7077으로 변경
+          name: SPARK_MASTER_PORT
+          value: "7077"
+        volumeMounts:
+          - name: custom-script
+            mountPath: "/master.sh"
+            subPath: entrypoint
+            readOnly: true
+      volumes:
+      - name: custom-script
+        configMap:
+          name: custom-script
+

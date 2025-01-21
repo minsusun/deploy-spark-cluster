@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-script
+data:
+  # originally from https://github.com/big-data-europe/docker-spark/blob/master/master/master.sh
+  # 1. set host to 0.0.0.0, spark cannot resolve k8s dns, so that spark cannot bind to the port
+  #    fix host to 0.0.0.0 to boot up spark, but it seems to result in being unable to reconnect
+  #    when the connection between master and worker.
+  entrypoint: |
+    #!/bin/bash
+    export SPARK_MASTER_HOST=0.0.0.0
+    export SPARK_HOME=/spark
+    . "/spark/sbin/spark-config.sh"
+    . "/spark/bin/load-spark-env.sh"
+    mkdir -p $SPARK_MASTER_LOG
+    ln -sf /dev/stdout $SPARK_MASTER_LOG/spark-master.out
+    cd /spark/bin && /spark/sbin/../bin/spark-class org.apache.spark.deploy.master.Master \
+        --ip $SPARK_MASTER_HOST --port $SPARK_MASTER_PORT --webui-port $SPARK_MASTER_WEBUI_PORT >> $SPARK_MASTER_LOG/spark-master.out

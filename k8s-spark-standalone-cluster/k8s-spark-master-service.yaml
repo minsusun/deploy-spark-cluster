@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-master
+spec:
+  selector:
+    app: spark-master
+  ports:
+    - name: dashboard
+      protocol: TCP
+      port: 8080
+      targetPort: http
+    - name: job
+      protocol: TCP
+      port: 7077
+      targetPort: job
