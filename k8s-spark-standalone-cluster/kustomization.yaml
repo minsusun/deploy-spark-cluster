@@ -7,3 +7,5 @@ resources:
   - ./k8s-spark-master-service.yaml
   - ./k8s-spark-master-custom-entry-script.yaml
   - ./k8s-spark-worker.yaml
+  - ./k8s-spark-history-server.yaml
+  - ./k8s-spark-history-server-service.yaml

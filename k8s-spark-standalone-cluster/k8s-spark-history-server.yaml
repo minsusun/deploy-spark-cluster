@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-history-server
+spec:
+  selector:
+    matchLabels:
+      app: spark-history-server
+  template:
+    metadata:
+      labels:
+        app: spark-history-server
+    spec:
+      containers:
+      - name: spark-history-server
+        image: bde2020/spark-history-server:3.3.0-hadoop3.3
+        ports:
+        - name: dashboard
+          containerPort: 18081
+        volumeMounts:
+          - name: events
+            mountPath: "/tmp/spark-events"
+      volumes:
+        - name: events
+          emptyDir:
+            sizeLimit: 2Gi
