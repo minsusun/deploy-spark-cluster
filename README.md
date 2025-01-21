@@ -1,1 +1,1 @@
-## Simple resources for various types of Spark Clusters on k8s environment
+## Simple resources for various types of Spark Clusters on docker and k8s environment
