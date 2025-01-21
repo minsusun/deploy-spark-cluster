@@ -24,6 +24,8 @@ spec:
           value: setup_spark
         - # 원래 기존 이미지에서 환경변수를 지정해서 설정해놨지만, k8s로 올리면 이상하게 tcp://<ip_address>:8080으로 잡힌다
           # 강제로 7077으로 변경
+          # > k8s에서 pod 생성시 k8s이 자동으로 SPARK_MASTER_PORT=<POD_IP>:<PORT>와 같이 환경변수를 세팅해서 생기는 문제.
+          # 이름은 SPARK_MASTER가 아닌 걸로 바꾸면 되지만 귀찮으니 이대로 진행.
           name: SPARK_MASTER_PORT
           value: "7077"
         volumeMounts:
