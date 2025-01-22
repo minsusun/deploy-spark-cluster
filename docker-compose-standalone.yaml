@@ -1,6 +1,6 @@
 services:
   spark:
-    image: docker.io/bitnami/spark:3.2.4
+    image: docker.io/bitnami/spark:3.3.0
     container_name: master
     environment:
       - SPARK_MODE=master
@@ -15,7 +15,7 @@ services:
     volumes:
       - '/tmp/:/var/tmp/'
   spark-worker:
-    image: docker.io/bitnami/spark:3.2.4
+    image: docker.io/bitnami/spark:3.3.0
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark:7077
