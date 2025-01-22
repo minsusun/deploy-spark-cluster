@@ -28,13 +28,3 @@ spec:
           # 이름은 SPARK_MASTER가 아닌 걸로 바꾸면 되지만 귀찮으니 이대로 진행.
           name: SPARK_MASTER_PORT
           value: "7077"
-        volumeMounts:
-          - name: custom-script
-            mountPath: "/master.sh"
-            subPath: entrypoint
-            readOnly: true
-      volumes:
-      - name: custom-script
-        configMap:
-          name: custom-script
-
