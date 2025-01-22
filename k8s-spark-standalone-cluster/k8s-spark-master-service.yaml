@@ -9,7 +9,7 @@ spec:
     - name: dashboard
       protocol: TCP
       port: 8080
-      targetPort: http
+      targetPort: dashboard
     - name: job
       protocol: TCP
       port: 7077
