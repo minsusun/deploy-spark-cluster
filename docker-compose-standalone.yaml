@@ -2,6 +2,9 @@ services:
   spark:
     image: docker.io/bitnami/spark:3.3.0
     container_name: master
+    security_opt:
+      - seccomp:unconfined
+    privileged: true
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -16,6 +19,9 @@ services:
       - '/tmp/:/var/tmp/'
   spark-worker:
     image: docker.io/bitnami/spark:3.3.0
+    security_opt:
+      - seccomp:unconfined
+    privileged: true
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark:7077
