@@ -30,7 +30,7 @@ RUN cd / \
       && tar -xzvf async-profiler-3.0-linux-x64.tar.gz \
       && mv async-profiler-3.0-linux-x64 asprof \
       && rm async-profiler-3.0-linux-x64.tar.gz
-RUN chmod +x /asprof/asprof
+RUN chmod +x /asprof/bin/asprof
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
