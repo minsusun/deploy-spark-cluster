@@ -14,6 +14,23 @@ COPY finish-step.sh /
 
 #COPY bde-spark.css /css/org/apache/spark/ui/static/timeline-view.css
 
+# Setup SCALA_HOME
+ENV SCALA_HOME=/usr/share/scala
+
+# Install Scala 2.12.3
+RUN SCALA_VERSION=2.12.3 && \
+      apk add --no-cache --virtual=.build-dependencies wget ca-certificates && \
+      apk add --no-cache bash && \
+      cd "/tmp" && \
+      wget "http://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz" && \
+      tar xzf "scala-${SCALA_VERSION}.tgz" && \
+      mkdir "${SCALA_HOME}" && \
+      rm "/tmp/scala-${SCALA_VERSION}/bin/"*.bat && \
+      mv "/tmp/scala-${SCALA_VERSION}/bin" "/tmp/scala-${SCALA_VERSION}/lib" "${SCALA_HOME}" && \
+      ln -s "${SCALA_HOME}/bin/"* "/usr/bin/" && \
+      apk del .build-dependencies && \
+      rm -rf "/tmp/"*
+
 RUN apk add --no-cache curl bash openjdk8-jre openjdk8-dbg python3 py-pip nss libc6-compat coreutils procps maven \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
@@ -34,6 +51,10 @@ RUN chmod +x /asprof/bin/asprof
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
+
+# Add JDK binaries
+RUN apk add openjdk8
+ENV PATH="$PATH:/usr/lib/jvm/default-jvm/bin"
 
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
