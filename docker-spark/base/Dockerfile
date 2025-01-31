@@ -14,7 +14,7 @@ COPY finish-step.sh /
 
 #COPY bde-spark.css /css/org/apache/spark/ui/static/timeline-view.css
 
-RUN apk add --no-cache curl bash openjdk8-jre python3 py-pip nss libc6-compat coreutils procps \
+RUN apk add --no-cache curl bash openjdk8-jre openjdk8-dbg python3 py-pip nss libc6-compat coreutils procps maven \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
       && wget ${BASE_URL}/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
@@ -24,6 +24,13 @@ RUN apk add --no-cache curl bash openjdk8-jre python3 py-pip nss libc6-compat co
       #&& cd /css \
       #&& jar uf /spark/jars/spark-core_2.11-${SPARK_VERSION}.jar org/apache/spark/ui/static/timeline-view.css \
       && cd /
+
+RUN cd / \
+      && wget https://github.com/async-profiler/async-profiler/releases/download/v3.0/async-profiler-3.0-linux-x64.tar.gz \
+      && tar -xzvf async-profiler-3.0-linux-x64.tar.gz \
+      && mv async-profiler-3.0-linux-x64 asprof \
+      && rm async-profiler-3.0-linux-x64.tar.gz
+RUN chmod +x /asprof/asprof
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
