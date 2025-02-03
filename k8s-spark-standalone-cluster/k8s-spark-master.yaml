@@ -14,6 +14,8 @@ spec:
       containers:
       - name: spark-master
         image: bde2020/spark-master:3.3.0-hadoop3.3
+        securityContext:
+          privileged: true
         ports:
         - name: dashboard
           containerPort: 8080
@@ -32,3 +34,4 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
+      securityContext: {}
