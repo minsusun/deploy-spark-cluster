@@ -28,3 +28,7 @@ spec:
           # 이름은 SPARK_MASTER가 아닌 걸로 바꾸면 되지만 귀찮으니 이대로 진행.
           name: SPARK_MASTER_PORT
           value: "7077"
+        - name: K8S_SPARK_MASTER_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
