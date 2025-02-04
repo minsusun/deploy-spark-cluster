@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM --platform=linux/amd64 alpine:3.10
 
 ENV ENABLE_INIT_DAEMON false
 ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
