@@ -1,6 +1,6 @@
 services:
   spark:
-    image: bde2020/spark-master:3.3.0-hadoop3.3
+    image: minsusun/spark-cluster-master:3.3.0
     container_name: master
     security_opt:
       - seccomp:unconfined
@@ -18,7 +18,7 @@ services:
     volumes:
       - '/tmp/:/var/tmp/'
   spark-worker:
-    image: bde2020/spark-worker:3.3.0-hadoop3.3
+    image: minsusun/spark-cluster-worker:3.3.0
     security_opt:
       - seccomp:unconfined
     privileged: true
