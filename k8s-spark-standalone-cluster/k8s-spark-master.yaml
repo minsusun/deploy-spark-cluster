@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: spark-master
-        image: minsusun/spark-cluster-master:3.3.0
+        image: minsusun/spark-cluster-master
         imagePullPolicy: Always
         securityContext:
           privileged: true

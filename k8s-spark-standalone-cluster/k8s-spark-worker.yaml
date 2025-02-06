@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: spark-worker
-        image: minsusun/spark-cluster-worker:3.3.0
+        image: minsusun/spark-cluster-worker
         imagePullPolicy: Always
         securityContext:
           privileged: true
