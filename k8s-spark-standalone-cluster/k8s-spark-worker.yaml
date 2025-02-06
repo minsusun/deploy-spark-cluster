@@ -38,6 +38,6 @@ spec:
           value: "no"
         resources:
           requests:
-            cpu: "50m"
-            memory: "200Mi"
+            cpu: "100m"
+            memory: "2Gi"
       securityContext: {}
