@@ -1,6 +1,6 @@
 services:
   spark:
-    image: minsusun/spark-cluster-master:3.3.0
+    image: minsusun/spark-cluster-master
     container_name: master
     security_opt:
       - seccomp:unconfined
@@ -18,7 +18,7 @@ services:
     volumes:
       - '/tmp/:/var/tmp/'
   spark-worker:
-    image: minsusun/spark-cluster-worker:3.3.0
+    image: minsusun/spark-cluster-worker
     security_opt:
       - seccomp:unconfined
     privileged: true
