@@ -16,6 +16,13 @@ RUN set -x \
     && tar -xvf /tmp/hadoop.tar.gz -C /opt/ \
     && rm /tmp/hadoop.tar.gz*
 
+RUN cd / \
+    && wget https://github.com/async-profiler/async-profiler/releases/download/v3.0/async-profiler-3.0-linux-x64.tar.gz \
+    && tar -xzvf async-profiler-3.0-linux-x64.tar.gz \
+    && mv async-profiler-3.0-linux-x64 asprof \
+    && rm async-profiler-3.0-linux-x64.tar.gz
+RUN chmod +x /asprof/bin/asprof
+
 RUN ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
 
 RUN mkdir /opt/hadoop-$HADOOP_VERSION/logs
